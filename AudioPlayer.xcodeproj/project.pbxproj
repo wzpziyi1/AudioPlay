@@ -16,6 +16,7 @@
 		0942A44D1F0507E900594962 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0942A44B1F0507E900594962 /* LaunchScreen.storyboard */; };
 		0942A4581F0507E900594962 /* AudioPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942A4571F0507E900594962 /* AudioPlayerTests.m */; };
 		0942A4631F0507E900594962 /* AudioPlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942A4621F0507E900594962 /* AudioPlayerUITests.m */; };
+		09EF4B2A1F062AE9007D0233 /* ZYAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 09EF4B291F062AE9007D0233 /* ZYAudioPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		0942A45E1F0507E900594962 /* AudioPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0942A4621F0507E900594962 /* AudioPlayerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerUITests.m; sourceTree = "<group>"; };
 		0942A4641F0507E900594962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09EF4B281F062AE9007D0233 /* ZYAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYAudioPlayer.h; sourceTree = "<group>"; };
+		09EF4B291F062AE9007D0233 /* ZYAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYAudioPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,7 @@
 		0942A4391F0507E900594962 /* AudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				09EF4B271F0621F3007D0233 /* Player */,
 				0942A43D1F0507E900594962 /* AppDelegate.h */,
 				0942A43E1F0507E900594962 /* AppDelegate.m */,
 				0942A4401F0507E900594962 /* ViewController.h */,
@@ -141,6 +145,15 @@
 				0942A4641F0507E900594962 /* Info.plist */,
 			);
 			path = AudioPlayerUITests;
+			sourceTree = "<group>";
+		};
+		09EF4B271F0621F3007D0233 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				09EF4B281F062AE9007D0233 /* ZYAudioPlayer.h */,
+				09EF4B291F062AE9007D0233 /* ZYAudioPlayer.m */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EF4B2A1F062AE9007D0233 /* ZYAudioPlayer.m in Sources */,
 				0942A4421F0507E900594962 /* ViewController.m in Sources */,
 				0942A43F1F0507E900594962 /* AppDelegate.m in Sources */,
 				0942A43C1F0507E900594962 /* main.m in Sources */,
@@ -522,6 +536,7 @@
 				0942A4691F0507E900594962 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0942A46A1F0507E900594962 /* Build configuration list for PBXNativeTarget "AudioPlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +545,7 @@
 				0942A46C1F0507E900594962 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0942A46D1F0507E900594962 /* Build configuration list for PBXNativeTarget "AudioPlayerUITests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +554,7 @@
 				0942A46F1F0507E900594962 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

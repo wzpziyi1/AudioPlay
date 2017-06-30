@@ -95,6 +95,14 @@ static id _instance = nil;
     }];
 }
 
+- (NSString *)currentTimeFormat {
+    return [NSString stringWithFormat:@"%02zd:%02zd", (int)self.currentTime / 60, (int)self.currentTime % 60];
+}
+
+- (NSString *)totalTimeFormat {
+    return [NSString stringWithFormat:@"%02zd:%02zd", (int)self.totalTime / 60, (int)self.totalTime % 60];
+}
+
 - (void)setRate:(float)rate
 {
     [self.player setRate:rate];
@@ -117,6 +125,47 @@ static id _instance = nil;
     [self.player setVolume:volume];
 }
 
+
+-(NSTimeInterval)totalTime {
+    CMTime totalTime = self.player.currentItem.duration;
+    NSTimeInterval totalTimeSec = CMTimeGetSeconds(totalTime);
+    if (isnan(totalTimeSec)) {
+        return 0;
+    }
+    return totalTimeSec;
+}
+
+- (NSTimeInterval)currentTime {
+    CMTime playTime = self.player.currentItem.currentTime;
+    NSTimeInterval playTimeSec = CMTimeGetSeconds(playTime);
+    if (isnan(playTimeSec)) {
+        return 0;
+    }
+    return playTimeSec;
+}
+
+- (float)progress {
+    if (self.totalTime == 0) {
+        return 0;
+    }
+    return self.currentTime / self.totalTime;
+}
+
+
+- (float)loadDataProgress {
+    
+    if (self.totalTime == 0) {
+        return 0;
+    }
+    
+    CMTimeRange timeRange = [[self.player.currentItem loadedTimeRanges].lastObject CMTimeRangeValue];
+    
+    CMTime loadTime = CMTimeAdd(timeRange.start, timeRange.duration);
+    NSTimeInterval loadTimeSec = CMTimeGetSeconds(loadTime);
+    
+    return loadTimeSec / self.totalTime;
+    
+}
 #pragma mark - kvo处理
 
 - (void)removeAllObserver

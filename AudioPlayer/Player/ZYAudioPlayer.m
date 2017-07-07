@@ -10,16 +10,25 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ZYRemoteResourceLoaderDelegate.h"
 #import "NSURL+RemotePlayer.h"
+#import "ZYAudioMacro.h"
 
 @interface ZYAudioPlayer()
+{
+    // 标识用户是否进行了手动暂停
+    BOOL _isUserPause;
+}
 @property (nonatomic, strong) AVPlayer *player;
 
 @property (nonatomic, strong) ZYRemoteResourceLoaderDelegate *resourceLoaderDelegate;
 @property (nonatomic, strong, readwrite) NSURL *url;
+@property (nonatomic, assign, readwrite) ZYAudioPlayerState state;
 @end
 
 static id _instance = nil;
 @implementation ZYAudioPlayer
+
+#pragma mark - 单例方法
+
 + (instancetype)sharedInstance
 {
     static dispatch_once_t onceToken;
@@ -41,8 +50,26 @@ static id _instance = nil;
     return _instance;
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    return _instance;
+}
+
+-(id)mutableCopyWithZone:(NSZone *)zone {
+    return _instance;
+}
+
+#pragma mark -播放相关
+
 - (void)playWithURL:(NSURL *)url isCache:(BOOL)isCache
 {
+    NSURL *currentURL = [(AVURLAsset *)self.player.currentItem.asset URL];
+    if ([url isEqual:currentURL] || [[url streamingUrl] isEqual:currentURL]) {
+        NSLog(@"当前播放任务已经存在");
+        [self resume];
+        return;
+    }
+    
     [self removeAllObserver];
     
     self.url = url;
@@ -50,7 +77,7 @@ static id _instance = nil;
     {
         //把http://
         //变成stream://   这样可以让resourceLoaderDelegate拦截加载，从而自己操作数据
-        url = [url steamingUrl];
+        url = [url streamingUrl];
     }
     
     
@@ -64,25 +91,72 @@ static id _instance = nil;
     
     //监听状态，资源准备好了之后, 再进行播放
     [item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    [item addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
     
     self.player = [AVPlayer playerWithPlayerItem:item];
 }
 
-#pragma mark - 播放处理
 - (void)pause
 {
     [self.player pause];
+    _isUserPause = YES;
+    if (self.player)
+    {
+        self.state = ZYAudioPlayerStatePause;
+    }
+    
 }
 - (void)resume
 {
     [self.player play];
+    _isUserPause = NO;
+    // 当前播放器存在, 并且, 数据组织者里面的数据准备, 已经足够播放了
+    if (self.player && self.player.currentItem.playbackLikelyToKeepUp)
+    {
+        self.state = ZYAudioPlayerStatePlaying;
+    }
 }
 - (void)stop
 {
     [self.player pause];
     self.player = nil;
+    self.state = ZYAudioPlayerStateStoped;
 }
 
+
+/**
+ 播放完成
+ */
+- (void)playEnd {
+    NSLog(@"播放完成");
+    self.state = ZYAudioPlayerStateStoped;
+}
+
+/**
+ 被打断
+ */
+- (void)playInterupt {
+    // 来电话, 资源加载跟不上
+    NSLog(@"播放被打断");
+    self.state = ZYAudioPlayerStatePause;
+}
+
+
+/**
+ 状态变更
+ */
+- (void)setState:(ZYAudioPlayerState)state
+{
+    
+    if (_state == state)
+    {
+        return;
+    }
+    
+    _state = state;
+    //用通知告知外界状态变更
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZYAudioPlayerStateChangeNotification object:nil userInfo:@{@"playerState": @(state)}];
+}
 
 /**
  快进or快退多少秒
@@ -214,6 +288,9 @@ static id _instance = nil;
 - (void)removeAllObserver
 {
     [self.player.currentItem removeObserver:self forKeyPath:@"status"];
+    [self.player.currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
@@ -231,8 +308,27 @@ static id _instance = nil;
         else   //状态未知
         {
             NSLog(@"资源未知错误");
+            self.state = ZYAudioPlayerStateFailed;
         }
         
+    }
+    else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"])
+    {
+        BOOL ptk = [change[NSKeyValueChangeNewKey] boolValue];
+        if (ptk)
+        {
+            NSLog(@"当前的资源, 已经足够播放");
+            // 用户的手动暂停的优先级最高
+            if (!_isUserPause)
+            {
+                [self resume];
+            }
+        }
+        else
+        {
+            NSLog(@"资源还不够, 正在加载");
+            self.state = ZYAudioPlayerStateLoading;
+        }
     }
     else
     {

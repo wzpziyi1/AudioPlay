@@ -60,6 +60,7 @@
 		0942A4641F0507E900594962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0955543E1F0F7BA600126D01 /* NSURL+RemotePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+RemotePlayer.h"; sourceTree = "<group>"; };
 		0955543F1F0F7BA600126D01 /* NSURL+RemotePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+RemotePlayer.m"; sourceTree = "<group>"; };
+		095F70221F0FB45100144DE8 /* ZYAudioMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYAudioMacro.h; sourceTree = "<group>"; };
 		09EF4B281F062AE9007D0233 /* ZYAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYAudioPlayer.h; sourceTree = "<group>"; };
 		09EF4B291F062AE9007D0233 /* ZYAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYAudioPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +157,7 @@
 		09EF4B271F0621F3007D0233 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				095F70221F0FB45100144DE8 /* ZYAudioMacro.h */,
 				09EF4B281F062AE9007D0233 /* ZYAudioPlayer.h */,
 				09EF4B291F062AE9007D0233 /* ZYAudioPlayer.m */,
 				0905DA161F06474A001F994B /* ZYRemoteResourceLoaderDelegate.h */,

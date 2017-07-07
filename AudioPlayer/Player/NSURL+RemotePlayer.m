@@ -9,7 +9,7 @@
 #import "NSURL+RemotePlayer.h"
 
 @implementation NSURL (RemotePlayer)
-- (NSURL *)steamingUrl
+- (NSURL *)streamingUrl
 {
     NSURLComponents *compents = [NSURLComponents componentsWithString:self.absoluteString];
     compents.scheme = @"sreaming";

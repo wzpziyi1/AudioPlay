@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSURL (RemotePlayer)
-- (NSURL *)steamingUrl;
+- (NSURL *)streamingUrl;
 @end

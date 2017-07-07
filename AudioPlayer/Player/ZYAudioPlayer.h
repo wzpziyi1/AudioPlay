@@ -21,9 +21,9 @@ typedef NS_ENUM(NSInteger, ZYAudioPlayerState) {
 + (instancetype)sharedInstance;
 
 /**
- 根据一个url地址, 播放相关的远程音频资源，isCache是否边需要缓存
+ 根据一个url地址, 播放相关的远程音频资源
  */
-- (void)playWithURL:(NSURL *)url isCache:(BOOL)isCache;
+- (void)playWithURL:(NSURL *)url;
 
 - (void)pause;
 

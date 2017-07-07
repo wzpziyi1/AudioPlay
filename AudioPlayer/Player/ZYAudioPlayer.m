@@ -8,8 +8,6 @@
 
 #import "ZYAudioPlayer.h"
 #import <AVFoundation/AVFoundation.h>
-#import "ZYRemoteResourceLoaderDelegate.h"
-#import "NSURL+RemotePlayer.h"
 #import "ZYAudioMacro.h"
 
 @interface ZYAudioPlayer()
@@ -19,7 +17,7 @@
 }
 @property (nonatomic, strong) AVPlayer *player;
 
-@property (nonatomic, strong) ZYRemoteResourceLoaderDelegate *resourceLoaderDelegate;
+//@property (nonatomic, strong) ZYRemoteResourceLoaderDelegate *resourceLoaderDelegate;
 @property (nonatomic, strong, readwrite) NSURL *url;
 @property (nonatomic, assign, readwrite) ZYAudioPlayerState state;
 @end
@@ -61,10 +59,10 @@ static id _instance = nil;
 
 #pragma mark -播放相关
 
-- (void)playWithURL:(NSURL *)url isCache:(BOOL)isCache
+- (void)playWithURL:(NSURL *)url
 {
     NSURL *currentURL = [(AVURLAsset *)self.player.currentItem.asset URL];
-    if ([url isEqual:currentURL] || [[url streamingUrl] isEqual:currentURL]) {
+    if ([url isEqual:currentURL]) {
         NSLog(@"当前播放任务已经存在");
         [self resume];
         return;
@@ -73,19 +71,19 @@ static id _instance = nil;
     [self removeAllObserver];
     
     self.url = url;
-    if (isCache)
-    {
-        //把http://
-        //变成stream://   这样可以让resourceLoaderDelegate拦截加载，从而自己操作数据
-        url = [url streamingUrl];
-    }
+//    if (isCache)
+//    {
+//        //把http://
+//        //变成stream://   这样可以让resourceLoaderDelegate拦截加载，从而自己操作数据
+//        url = [url streamingUrl];
+//    }
     
     
     AVURLAsset *asset = [AVURLAsset assetWithURL:url];
     // 关于网络音频的请求, 是通过这个对象, 调用代理的相关方法, 进行加载的
     // 拦截加载的请求, 只需要, 重新修改它的代理方法就可以
-    self.resourceLoaderDelegate = [[ZYRemoteResourceLoaderDelegate alloc] init];
-    [asset.resourceLoader setDelegate:self.resourceLoaderDelegate queue:dispatch_get_main_queue()];
+//    self.resourceLoaderDelegate = [[ZYRemoteResourceLoaderDelegate alloc] init];
+//    [asset.resourceLoader setDelegate:self.resourceLoaderDelegate queue:dispatch_get_main_queue()];
     //资源组织者
     AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
     

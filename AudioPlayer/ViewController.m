@@ -55,7 +55,7 @@
     
     self.volumeSlider.value = [ZYAudioPlayer sharedInstance].volume;
     
-    NSLog(@"%d", [ZYAudioPlayer sharedInstance].state);
+    NSLog(@"%ld", (long)[ZYAudioPlayer sharedInstance].state);
     
     self.loadPV.progress = [ZYAudioPlayer sharedInstance].loadDataProgress;
     
@@ -68,7 +68,7 @@
 - (IBAction)play:(id)sender {
     
     NSURL *url = [NSURL URLWithString:@"http://audio.xmcdn.com/group23/M04/63/C5/wKgJNFg2qdLCziiYAGQxcTOSBEw402.m4a"];
-    [[ZYAudioPlayer sharedInstance] playWithURL:url isCache:NO];
+    [[ZYAudioPlayer sharedInstance] playWithURL:url];
     
 }
 - (IBAction)pause:(id)sender {

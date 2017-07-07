@@ -43,8 +43,9 @@ static id _instance = nil;
 
 - (void)playWithURL:(NSURL *)url isCache:(BOOL)isCache
 {
-    self.url = url;
+    [self removeAllObserver];
     
+    self.url = url;
     if (isCache)
     {
         //把http://
@@ -153,6 +154,20 @@ static id _instance = nil;
     [self.player setVolume:volume];
 }
 
+- (float)volume
+{
+    return self.player.volume;
+}
+
+- (BOOL)muted
+{
+    return self.player.muted;
+}
+
+- (float)rate
+{
+    return self.player.rate;
+}
 
 -(NSTimeInterval)totalTime {
     CMTime totalTime = self.player.currentItem.duration;

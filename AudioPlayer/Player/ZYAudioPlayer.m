@@ -8,10 +8,14 @@
 
 #import "ZYAudioPlayer.h"
 #import <AVFoundation/AVFoundation.h>
+#import "ZYRemoteResourceLoaderDelegate.h"
+#import "NSURL+RemotePlayer.h"
 
 @interface ZYAudioPlayer()
 @property (nonatomic, strong) AVPlayer *player;
 
+@property (nonatomic, strong) ZYRemoteResourceLoaderDelegate *resourceLoaderDelegate;
+@property (nonatomic, strong, readwrite) NSURL *url;
 @end
 
 static id _instance = nil;
@@ -27,13 +31,37 @@ static id _instance = nil;
     return _instance;
 }
 
-- (void)playWithUrl:(NSURL *)url
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
+    if (!_instance) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            _instance = [super allocWithZone:zone];
+        });
+    }
+    return _instance;
+}
+
+- (void)playWithURL:(NSURL *)url isCache:(BOOL)isCache
 {
-    AVAsset *asset = [AVAsset assetWithURL:url];
+    self.url = url;
+    
+    if (isCache)
+    {
+        //把http://
+        //变成stream://   这样可以让resourceLoaderDelegate拦截加载，从而自己操作数据
+        url = [url steamingUrl];
+    }
+    
+    
+    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
+    // 关于网络音频的请求, 是通过这个对象, 调用代理的相关方法, 进行加载的
+    // 拦截加载的请求, 只需要, 重新修改它的代理方法就可以
+    self.resourceLoaderDelegate = [[ZYRemoteResourceLoaderDelegate alloc] init];
+    [asset.resourceLoader setDelegate:self.resourceLoaderDelegate queue:dispatch_get_main_queue()];
     //资源组织者
     AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
     
-    //监听状态
+    //监听状态，资源准备好了之后, 再进行播放
     [item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
     
     self.player = [AVPlayer playerWithPlayerItem:item];

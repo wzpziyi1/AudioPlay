@@ -11,7 +11,7 @@
 @interface ZYAudioPlayer : NSObject
 + (instancetype)sharedInstance;
 
-- (void)playWithUrl:(NSURL *)url;
+- (void)playWithURL:(NSURL *)url isCache:(BOOL)isCache;
 
 - (void)pause;
 - (void)resume;
@@ -45,5 +45,6 @@
 
 @property (nonatomic, assign, readonly) float progress;
 @property (nonatomic, strong, readonly) NSURL *url;
+//缓冲进度
 @property (nonatomic, assign, readonly) float loadDataProgress;
 @end

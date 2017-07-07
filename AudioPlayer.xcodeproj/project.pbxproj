@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0905DA181F06474A001F994B /* ZYRemoteResourceLoaderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0905DA171F06474A001F994B /* ZYRemoteResourceLoaderDelegate.m */; };
 		0942A43C1F0507E900594962 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942A43B1F0507E900594962 /* main.m */; };
 		0942A43F1F0507E900594962 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942A43E1F0507E900594962 /* AppDelegate.m */; };
 		0942A4421F0507E900594962 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942A4411F0507E900594962 /* ViewController.m */; };
@@ -16,6 +17,7 @@
 		0942A44D1F0507E900594962 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0942A44B1F0507E900594962 /* LaunchScreen.storyboard */; };
 		0942A4581F0507E900594962 /* AudioPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942A4571F0507E900594962 /* AudioPlayerTests.m */; };
 		0942A4631F0507E900594962 /* AudioPlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942A4621F0507E900594962 /* AudioPlayerUITests.m */; };
+		095554401F0F7BA600126D01 /* NSURL+RemotePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0955543F1F0F7BA600126D01 /* NSURL+RemotePlayer.m */; };
 		09EF4B2A1F062AE9007D0233 /* ZYAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 09EF4B291F062AE9007D0233 /* ZYAudioPlayer.m */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0905DA161F06474A001F994B /* ZYRemoteResourceLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYRemoteResourceLoaderDelegate.h; sourceTree = "<group>"; };
+		0905DA171F06474A001F994B /* ZYRemoteResourceLoaderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYRemoteResourceLoaderDelegate.m; sourceTree = "<group>"; };
 		0942A4371F0507E900594962 /* AudioPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0942A43B1F0507E900594962 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0942A43D1F0507E900594962 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 		0942A45E1F0507E900594962 /* AudioPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0942A4621F0507E900594962 /* AudioPlayerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerUITests.m; sourceTree = "<group>"; };
 		0942A4641F0507E900594962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0955543E1F0F7BA600126D01 /* NSURL+RemotePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+RemotePlayer.h"; sourceTree = "<group>"; };
+		0955543F1F0F7BA600126D01 /* NSURL+RemotePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+RemotePlayer.m"; sourceTree = "<group>"; };
 		09EF4B281F062AE9007D0233 /* ZYAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYAudioPlayer.h; sourceTree = "<group>"; };
 		09EF4B291F062AE9007D0233 /* ZYAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYAudioPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +158,10 @@
 			children = (
 				09EF4B281F062AE9007D0233 /* ZYAudioPlayer.h */,
 				09EF4B291F062AE9007D0233 /* ZYAudioPlayer.m */,
+				0905DA161F06474A001F994B /* ZYRemoteResourceLoaderDelegate.h */,
+				0905DA171F06474A001F994B /* ZYRemoteResourceLoaderDelegate.m */,
+				0955543E1F0F7BA600126D01 /* NSURL+RemotePlayer.h */,
+				0955543F1F0F7BA600126D01 /* NSURL+RemotePlayer.m */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -292,8 +302,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				095554401F0F7BA600126D01 /* NSURL+RemotePlayer.m in Sources */,
 				09EF4B2A1F062AE9007D0233 /* ZYAudioPlayer.m in Sources */,
 				0942A4421F0507E900594962 /* ViewController.m in Sources */,
+				0905DA181F06474A001F994B /* ZYRemoteResourceLoaderDelegate.m in Sources */,
 				0942A43F1F0507E900594962 /* AppDelegate.m in Sources */,
 				0942A43C1F0507E900594962 /* main.m in Sources */,
 				0942A4481F0507E900594962 /* AudioPlayer.xcdatamodeld in Sources */,

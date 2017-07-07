@@ -189,10 +189,12 @@ static id _instance = nil;
     [self.player seekToTime:playTime completionHandler:^(BOOL finished) {
         if (finished)
         {
+            [self resume];
             NSLog(@"跳转播放成功");
         }
         else
         {
+            [self pause];
             NSLog(@"跳转播放失败");
         }
     }];

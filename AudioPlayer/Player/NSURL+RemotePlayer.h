@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSURL (RemotePlayer)
+// 获取streaming协议的url地址
 - (NSURL *)streamingUrl;
+
+- (NSURL *)httpURL;
 @end

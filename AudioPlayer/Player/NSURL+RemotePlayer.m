@@ -15,4 +15,12 @@
     compents.scheme = @"sreaming";
     return compents.URL;
 }
+
+- (NSURL *)httpURL {
+    NSURLComponents *compents = [NSURLComponents componentsWithString:self.absoluteString];
+    compents.scheme = @"http";
+    return compents.URL;
+    
+    
+}
 @end

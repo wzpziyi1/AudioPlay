@@ -55,7 +55,7 @@
     
     self.volumeSlider.value = [ZYAudioPlayer sharedInstance].volume;
     
-    NSLog(@"%f", [ZYAudioPlayer sharedInstance].volume);
+    NSLog(@"%d", [ZYAudioPlayer sharedInstance].state);
     
     self.loadPV.progress = [ZYAudioPlayer sharedInstance].loadDataProgress;
     
